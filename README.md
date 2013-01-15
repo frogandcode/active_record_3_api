@@ -1,6 +1,21 @@
 # ActiveRecord3Api
 
-TODO: Write a gem description
+Allows Rails 2 applications using Rails >= 2.3.8 to make use of the newer Active Record 3 query interface in Rails 3 (implemented using Rails 2 named scopes). The following finder methods have been ported:
+
+```
+where (:conditions)
+having (:conditions)
+select
+group
+order
+limit
+offset
+joins
+includes (:include)
+lock
+readonly
+from
+```
 
 ## Installation
 
@@ -18,7 +33,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+In your Rails 2 application, replace queries like this:
+
+    Client.all :conditions => ["orders_count = ?", params[:orders]]
+
+with the Active Record 3-style:
+
+    Client.where("orders_count = ?", params[:orders]).all
+
+All of the finder methods above have been implemented, though some edge cases may not be handled.
 
 ## Contributing
 
