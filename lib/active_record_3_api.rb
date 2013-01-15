@@ -62,27 +62,5 @@ end
 module ActiveRecord
   class Base
     extend ActiveRecord3Api::QueryMethods
-
-    class << self
-      protected
-
-      # Allow #scope method to be used as an alias for #named_scope
-      # for future compatibility with Active Record 3
-      # while still supporting its Rails 2 usage as a protected class method.
-      def scope_with_named_scope(key, scope_def_or_finder_key=nil, &block)
-        case scope_def_or_finder_key
-        when nil, Symbol
-          scope_without_named_scope(key, scope_def_or_finder_key)
-        else
-          if block_given?
-            named_scope key, &block
-          else
-            named_scope key, scope_def_or_finder_key
-          end
-        end
-      end
-      alias_method_chain :scope, :named_scope
-
-    end
   end
 end
